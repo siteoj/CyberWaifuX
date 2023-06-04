@@ -1,0 +1,2 @@
+# AnimeWaifus
+一个基于CyberWaifu开发的个人QQ机器人，可以进行人格设定，上下文语境结合，长期记忆链以及QQ说说的发送
