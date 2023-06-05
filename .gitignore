@@ -162,9 +162,20 @@ cython_debug/
 #local test
 st_model/
 memory/
-tts/
 presets/
-qqbot/
+
+!qqbot/qqbot.py
 drafts/
 *.zip
 config.ini
+qqbot/cqLogs
+qqbot/data
+qqbot/data
+qqbot/ffmpeg
+qqbot/logs
+config.yml
+bot.json
+device.json
+*.token
+*.bat
+*.exe
