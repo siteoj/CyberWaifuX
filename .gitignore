@@ -162,8 +162,7 @@ cython_debug/
 #local test
 st_model/
 memory/
-presets/
-
+presets/charactor
 !qqbot/qqbot.py
 drafts/
 *.zip
