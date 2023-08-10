@@ -178,6 +178,7 @@ qqbot/bot.json
 qqbot/device.json
 qqbot/session.token
 qqbot/go-cqhttp
+*.png
 *.token
 *.bat
 *.exe
