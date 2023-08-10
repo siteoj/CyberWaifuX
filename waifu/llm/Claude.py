@@ -88,7 +88,7 @@ class Claude(Brain):
         prompt = ''
         for mes in messages:
             if isinstance(mes, HumanMessage):
-                prompt += f'Human: ```\n{mes.content}\n```\n\n'
+                prompt += f'{mes.sender}: ```\n{mes.content}\n```\n\n'
             elif isinstance(mes, SystemMessage):
                 prompt += f'System Information: ```\n{mes.content}\n```\n\n'
             elif isinstance(mes, AIMessage):
@@ -107,7 +107,7 @@ class Claude(Brain):
         prompt = ''
         for mes in messages:
             if isinstance(mes, HumanMessage):
-                prompt += f'Human: ```\n{mes.content}\n```\n\n'
+                prompt += f'{mes.sender}: ```\n{mes.content}\n```\n\n'
             elif isinstance(mes, SystemMessage):
                 prompt += f'System Information: ```\n{mes.content}\n```\n\n'
             elif isinstance(mes, AIMessage):

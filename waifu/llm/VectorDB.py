@@ -27,7 +27,7 @@ class VectorDB:
         df.to_csv(self.save_path, mode='a', header=not os.path.exists(self.save_path), index=False)
 
 
-    def query(self, text: str, top_n: int, threshold: float = 0.7):
+    def query(self, text: str, top_n: int, threshold: float = 0.4):
         if text == '':
             return ['']
         relatedness_fn=lambda x, y: 1 - spatial.distance.cosine(x, y)
@@ -39,7 +39,7 @@ class VectorDB:
         row = df.shape[0]
         top_n = min(top_n, row)
         df['embedding'] = df['embedding'].apply(ast.literal_eval)
-
+        print(1)
         # Make query
         query_embedding = self.embedding.embed_query(text)
         strings_and_relatednesses = [

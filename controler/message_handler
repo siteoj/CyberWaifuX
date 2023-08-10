@@ -1,0 +1,188 @@
+from pycqBot.cqHttpApi import cqHttpApi, cqLog,cqBot
+from pycqBot.data import Message
+from waifu.Waifu import Waifu
+from waifu.Tools import divede_sentences
+import logging
+import json
+import os
+import time
+from snownlp import SnowNLP
+from pycqBot.cqCode import image, record
+from pycqBot.data import Private_Message,Group_Message
+from vits.vits import vits
+import requests
+from vits.fanyi import fanyi
+import urllib.request
+import json,threading
+from newvits.vits import voice_vits
+from vits.web import sendprompt,upscale
+from controler.control import newthread_process
+class handler():
+    def __init__(self,waifu:Waifu,bot: cqBot):
+        self.waifu = waifu
+        self.bot = bot
+        self.last_pic = ''
+        self.sdv = True
+        self.fenju = False
+        self.ql = False
+
+
+    # Checks if message contains "#叠甲" and enables armor mode
+    def handle_armor_mode(message:Message):
+        waifu.armor_flag = True
+        print('开启叠甲成功')
+        message.sender.send_message('开启叠甲成功')
+    # Checks if message contains "#话术" and sends the extracted text to the AI brain  
+    def handle_send_text(message:Message):
+        text = message.message.replace('#话术 ', '')
+        waifu.brain.think(text)
+        print('发送话术成功')
+        message.sender.send_message('发送话术成功')
+    # Initializes a new thread 
+    def handle_init(waifu, bot):
+        ntp = threading.Thread(target=newthread_process, args=(waifu,bot))
+        ntp.start()
+        print('初始化成功')
+        message.sender.send_message('初始化成功')
+
+    # Upscales an image
+    def handle_upscale(message):
+        target = message.message.replace('#upscale ', '')
+        url = upscale(last_pic, int(target))
+        if url != '':
+            print('绘图成功')
+            headers = {'User-Agent': 'Mozilla/5.0'}
+            r = requests.get(url=url, headers=headers)
+            with open(r'C:\path\to\image', 'wb') as f:
+                f.write(r.content)
+            message.sender.send_message('Success')
+            message.sender.send_message(image('file:///C:/path/to/image'))
+        else:
+            print('failed')
+            message.sender.send_message('failed')
+
+    # Sends an image to a group chat
+    def handle_send_group_image(message):
+        prompt = message.message.replace('#发送群聊画图', '')
+        last_pic, url = sendprompt(prompt)
+        if url != '':
+            headers = {'User-Agent': 'Mozilla/5.0'}
+            r = requests.get(url=url, headers=headers)
+            with open(r'C:\path\to\image', 'wb') as f:
+                f.write(r.content)
+            bot.cqapi.send_group_msg(group_id, image('file:///C:/path/to/image'))
+
+    # Generates an image from a prompt  
+    def handle_generate_image(message):
+        prompt = message.message.replace('#绘图 ', '')
+        last_pic, url = sendprompt(prompt)
+        if url != '':
+            headers = {'User-Agent': 'Mozilla/5.0'}
+            r = requests.get(url=url, headers=headers)
+            with open(r'C:\path\to\image', 'wb') as f:
+                f.write(r.content)
+            message.sender.send_message(image('file:///C:/path/to/image'))
+
+    # Saves memory
+    def handle_save_memory():
+        waifu.summarize_memory()
+
+    # Changes model package
+    def handle_change_package(message):
+        pkg = message.message.replace('#更改包', '')
+        waifu.v.change('model=' + pkg)
+        print('更改包成功')
+        message.sender.send_message('更改包成功')  
+
+    # Changes model 
+    def handle_change_model(message):
+        model = message.message.replace('#更改模型', '')
+        waifu.v.change('speaker=' + model)
+        print('更改模型成功')
+        message.sender.send_message('更改模型成功')
+
+    # Turns off voice 
+    def handle_turn_off_voice():
+        sdv = False
+        message.sender.send_message('关闭语音成功')
+
+    # Turns on voice
+    def handle_turn_on_voice():
+        sdv = True
+        message.sender.send_message('打开语音成功') 
+
+    # Turns off sentence splitting
+    def handle_turn_off_split():
+        fenju = False
+        message.sender.send_message('关闭分句成功')
+
+    # Turns on sentence splitting
+    def handle_turn_on_split():
+        fenju = True
+        message.sender.send_message('打开分句成功')
+
+    # Sends a voice message to a user
+    def handle_send_private_voice(message, bot):
+        # Extract info
+        cmd = message.message.replace('#单独发送语音', '') 
+        cmds = cmd.split('|')
+        aim = int(cmds[0])
+        content = cmds[1]
+
+        # Translate and synthesize voice
+        ans = waifu.fanyi(content)
+        path = voice_vits(text=ans)
+
+        # Send messages
+        bot.cqapi.send_private_msg(aim, content)
+        bot.cqapi.send_private_msg(aim, ans)
+        bot.cqapi.send_private_msg(aim, "%s" % record(file='file:///' + path))
+
+    # Sends a voice message to a group
+    def handle_send_group_voice(message, bot):
+        # Extract info
+        cmd = message.message.replace('#发送群聊语音', '')
+        cmds = cmd.split('|')
+        aim = int(cmds[0])
+        content = cmds[1]
+
+        # Translate and synthesize voice  
+        ans = waifu.fanyi(content)
+        path = voice_vits(text=ans)
+
+        # Send messages
+        bot.cqapi.send_group_msg(aim, content)
+        bot.cqapi.send_group_msg(aim, ans)
+        bot.cqapi.send_group_msg(aim, "%s" % record(file='file:///' + path))
+
+    # Logs into qzone
+    def handle_login_qzone():
+        waifu.qzonebot.login()
+
+    # Connects to VITS
+    def handle_connect_vits():
+        waifu.v = vits()
+
+    # Sends a voice message 
+    def handle_send_voice(message):
+        text = fanyi(message.message.replace('#发送语音', ''))
+        path = voice_vits(text) 
+        message.sender.send_message("%s" % record(file='file:///' + path))
+        message.sender.send_message(text)
+        
+    # Posts to qzone  
+    def handle_send_post(message, waifu):
+        if message.sender.id != 169829974:
+            message.sender.send_message('你在想什么呢,让我给你发说说?')
+            return
+        waifu.ss(message)
+
+    # Disables group chat
+    def handle_disable_group():
+        ql = False
+        message.sender.send_message('关闭群聊成功')
+
+    # Enables group chat
+    def handle_enable_group():
+        ql = True
+        message.sender.send_message('打开群聊成功')

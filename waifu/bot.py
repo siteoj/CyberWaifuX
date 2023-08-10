@@ -6,6 +6,8 @@ import re
 
 class qzonebot():
     def __init__(self) -> None:
+        pass
+    def login(self):
         self.qzone_login=waifu.qzone.login.QzoneLoginManager()
         self.cookies = self.qzone_login.login_via_qrcode()
         print("使用提供的cookie登录QQ空间失败,尝试使用二维码登录")
@@ -16,8 +18,6 @@ class qzonebot():
         print('\n'+'1')
         self.qzone_oper = waifu.qzone.model.QzoneOperator(int(str(self.cookies['uin']).replace("o", "")),
                                                        self.cookie_str)
-        
-        pass
     def send_emotion(self,str= ''):
         flag=0
         flag=self.qzone_oper.publish_emotion(str)

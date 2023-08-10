@@ -27,8 +27,8 @@ class SendEmoticon():
         str = json.dumps(self.description, ensure_ascii=False)
         prompt = f'''This is the images and descriptions you have, you need to choose one of them. Response with a single image's file name.\n{str}'''
         message = [
-            SystemMessage(content=self.role),
-            HumanMessage(content=prompt)
+            SystemMessage(content=self.role,sender='System'),
+            HumanMessage(content=prompt,sender='System')
         ]
 
         random_number = random.random()
@@ -58,8 +58,8 @@ class AddEmoji():
     def think(self, text: str):
         '''返回 emoji'''
         message = [
-            SystemMessage(content=self.role),
-            HumanMessage(content='add emoji for the following sentence:\n' + text)
+            SystemMessage(content=self.role,sender='System'),
+            HumanMessage(content='add emoji for the following sentence:\n' + text,sender='System')
         ]
 
         random_number = random.random()
@@ -89,8 +89,8 @@ class AddQQFace():
 
     def think(self, text: str):
         message = [
-            SystemMessage(content=self.role),
-            HumanMessage(content='Select a emoticon id for the following sentence:\n' + text)
+            SystemMessage(content=self.role,sender='System'),
+            HumanMessage(content='Select a emoticon id for the following sentence:\n' + text,sender='System')
         ]
 
         random_number = random.random()
@@ -123,7 +123,8 @@ class Search():
     def think(self, text: str):
         if len(text) <= 6:
             return '', ''
-        # check = [
+        print('进入搜索函数')
+        # check = [a
         #     SystemMessage(content=self.check),
         #     HumanMessage(content=f'Chekc the following text:\n"{text}"')
         # ]
@@ -131,8 +132,8 @@ class Search():
         # if not reply == 'yes':
         #     return '', ''
         message = [
-            SystemMessage(content=self.role),
-            HumanMessage(content=f'Make a Chinese search keyword for the following text:\n"{text}"')
+            SystemMessage(content=self.role,sender='System'),
+            HumanMessage(content=f'Make a Chinese search keyword for the following text:\n"{text}"',sender='System')
         ]
         question = self.brain.think_nonstream(message)
         answer = self.search.run(question)
@@ -152,8 +153,8 @@ class Emotion():
 
     def think(self, text: str):
         message = [
-            SystemMessage(content=self.role),
-            HumanMessage(content=f'''Response with one of {self.moods} for the following text:\n"{text}"''')
+            SystemMessage(content=self.role,sender='System'),
+            HumanMessage(content=f'''Response with one of {self.moods} for the following text:\n"{text}"''',sender='System')
         ]
         reply = self.brain.think_nonstream(message)
         for mood in self.moods:

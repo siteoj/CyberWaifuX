@@ -20,5 +20,5 @@ class Brain(metaclass=abc.ABCMeta):
 
 
     @abstractmethod
-    def extract_memory(self, text: str, top_n: int):
+    def extract_memory(self, text: str, top_n: int = 10):
         pass

@@ -5,7 +5,7 @@ from waifu.llm.Claude import Claude
 from tts.TTS import TTS
 from tts.edge.edge import speak
 from qqbot.qqbot import make_qq_bot
-from waifu.Tools import load_prompt, load_emoticon, load_memory, str2bool
+from waifu.Tools import load_prompt, load_emoticon, load_memory, load_stranger_prompt, str2bool
 import configparser
 
 config = configparser.ConfigParser()
@@ -19,6 +19,7 @@ if len(config_files) == 0:
 name 		 = config['CyberWaifu']['name']
 username     = config['CyberWaifu']['username']
 charactor 	 = config['CyberWaifu']['charactor']
+stranger     = config['CyberWaifu']['stranger']
 send_text    = str2bool(config['CyberWaifu']['send_text'])
 send_voice   = str2bool(config['CyberWaifu']['send_voice'])
 use_emoji 	 = str2bool(config['Thoughts']['use_emoji'])
@@ -30,6 +31,7 @@ search_api	 = config['Thoughts_GoogleSerperAPI']['api']
 voice 		 = config['TTS']['voice']
 
 prompt = load_prompt(charactor)
+stranger_prompt = load_stranger_prompt(stranger)
 
 # 语音配置
 tts_model = config['TTS']['model']
@@ -59,6 +61,7 @@ waifu = Waifu(brain=brain,
 				prompt=prompt,
 				name=name,
                 username=username,
+				stranger=stranger_prompt,
 				use_search=use_search,
 				search_api=search_api,
 				use_emoji=use_emoji,

@@ -23,12 +23,12 @@ def divede_sentences(text: str) -> List[str]:
     return sentences
 
 
-def make_message(text: str):
+def make_message(text: str,sender: str):
     data = {
         "msg": text,
         "time": datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     }
-    return HumanMessage(content=json.dumps(data, ensure_ascii=False))
+    return HumanMessage(content=json.dumps(data, ensure_ascii=False),sender=sender)
 
 
 def message_period_to_now(message: BaseMessage):
@@ -49,7 +49,15 @@ def load_prompt(filename: str):
     except:
         print(colored(f'人设文件: {file_path} 不存在', 'red'))
     return system_prompt
-
+def load_stranger_prompt(filename: str):
+    file_path = f'./presets/charactor/{filename}.txt'
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            system_prompt = f.read()
+        print(colored(f'陌生人人设文件加载成功！({file_path})', 'green'))
+    except:
+        print(colored(f'陌生人人设文件: {file_path} 不存在', 'red'))
+    return system_prompt
 
 def load_emoticon(emoticons: list):
     data = {'images': []}
