@@ -171,10 +171,13 @@ qqbot/cqLogs
 qqbot/data
 qqbot/data
 qqbot/ffmpeg
+qqbot/download
 qqbot/logs
 config.yml
-bot.json
-device.json
+qqbot/bot.json
+qqbot/device.json
+qqbot/session.token
+qqbot/go-cqhttp
 *.token
 *.bat
 *.exe
