@@ -179,7 +179,7 @@ qqbot/device.json
 qqbot/session.token
 qqbot/go-cqhttp
 ffmpeg
-*.png
+login_qr.png
 *.token
 *.bat
 *.exe
