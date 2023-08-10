@@ -39,7 +39,7 @@ def make_qq_bot(callback, waifu: Waifu, send_text, send_voice, tts):
         global fenju
         global last_pic
         global ql
-        if group and message.sender.id != 169829974:
+        if group and message.sender.id != waifu.qq_number:
             return
         if '#叠甲' in message.message:
             waifu.armor_flag = True
@@ -218,7 +218,7 @@ def make_qq_bot(callback, waifu: Waifu, send_text, send_voice, tts):
             logging.info('发送语音，文件目录是'+path)
             return
         if '#发送说说' in message.message:
-            if message.sender.id!=169829974:
+            if message.sender.id!=waifu.qq_number:
                 message.sender.send_message('你在想什么呢，让我给你发说说？')
                 return
             logging.info(f'{message.message}')
@@ -239,7 +239,7 @@ def make_qq_bot(callback, waifu: Waifu, send_text, send_voice, tts):
         try:
             # text=''
             # waifu.brain.think('/reset')
-            if message.sender.id!=169829974:
+            if message.sender.id!=waifu.qq_number:
                 reply = waifu.stranger(message)
             else: 
                 reply = str(waifu.ask(message.message))
@@ -315,7 +315,7 @@ def make_qq_bot(callback, waifu: Waifu, send_text, send_voice, tts):
         except Exception as e:
             logging.error(e)
     def on_group_msg_nonstream(message:Message):
-        if message.sender.id != 169829974:
+        if message.sender.id != waifu.qq_number:
             return
         logging.info(f'收到群聊信息{message.message}')
         process(message=message,group=True)
@@ -496,7 +496,7 @@ def make_qq_bot(callback, waifu: Waifu, send_text, send_voice, tts):
         #     logging.info('发送语音，文件目录是'+path)
         #     return
         # if '#发送说说' in message.message:
-        #     if message.sender.id!=169829974:
+        #     if message.sender.id!=waifu.qq_number:
         #         message.sender.send_message('你在想什么呢，让我给你发说说？')
         #         return
         #     logging.info(f'{message.message}')
@@ -508,7 +508,7 @@ def make_qq_bot(callback, waifu: Waifu, send_text, send_voice, tts):
         # try:
         #     # text=''
         #     waifu.brain.think('/reset')
-        #     if message.sender.id!=169829974:
+        #     if message.sender.id!=waifu.qq_number:
         #         reply = waifu.stranger(message)
         #     else: 
         #         reply = waifu.ask(message.message)

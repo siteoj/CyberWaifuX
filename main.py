@@ -16,6 +16,7 @@ if len(config_files) == 0:
     raise FileNotFoundError('配置文件 config.ini 未找到，请检查是否配置正确！')
 
 # CyberWaifu 配置
+qq_number    = int(config['CyberWaifu']['QQ'])
 name 		 = config['CyberWaifu']['name']
 username     = config['CyberWaifu']['username']
 charactor 	 = config['CyberWaifu']['charactor']
@@ -67,7 +68,8 @@ waifu = Waifu(brain=brain,
 				use_emoji=use_emoji,
 				use_qqface=use_qqface,
                 use_emotion=use_emotion,
-				use_emoticon=use_emoticon)
+				use_emoticon=use_emoticon,
+				qq_number=qq_number)
 
 # 记忆导入
 filename = config['CyberWaifu']['memory']

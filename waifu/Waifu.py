@@ -18,6 +18,7 @@ class Waifu():
     '''CyberWaifu'''
 
     def __init__(self,
+                 qq_number:str,
                  brain: Brain,
                  prompt: str,
                  name: str,
@@ -28,8 +29,9 @@ class Waifu():
                  use_emotion: bool = False,
                  use_emoji: bool = True,
                  use_qqface: bool = False,
-                 use_emoticon: bool = True):
+                 use_emoticon: bool = True,):
         self.brain = brain
+        self.qq_number=qq_number
         self.name = name
         self.username = username
         self.charactor_prompt = SystemMessage(content=f'{prompt}',sender='System')
