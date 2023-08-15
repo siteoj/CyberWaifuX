@@ -6,7 +6,7 @@ from hashlib import md5
 
 def fanyi(s:str):
 # Set your own appid/appkey.
-    appid = '20230608001705461' 
+    appid = 
     appkey = 'UV3RLUziF6fy7CxFp4hs'
 
     # For list of language codes, please refer to `https://api.fanyi.baidu.com/doc/21`
