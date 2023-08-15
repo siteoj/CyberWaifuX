@@ -30,10 +30,10 @@ def newthread_process(waifu: Waifu,bot: cqBot):
             path = path.replace("b'",'')
             path = path.replace("'",'')
             print(path)
-            bot.cqapi.send_private_msg(169829974,rcareply)
-            bot.cqapi.send_private_msg(169829974,text)
+            bot.cqapi.send_private_msg(waifu.qq_number,rcareply)
+            bot.cqapi.send_private_msg(waifu.qq_number,text)
             time.sleep(0.5)
-            bot.cqapi.send_private_msg(169829974,"%s" % record(file='file:///' + path))
+            bot.cqapi.send_private_msg(waifu.qq_number,"%s" % record(file='file:///' + path))
             
             # message.sender.send_message("%s" % record(file='http://192.168.1.102/VITS/output.wav'))
             
