@@ -4,10 +4,10 @@ import json
 import jsonpath
 from hashlib import md5
 
-def fanyi(s:str):
+def fanyi(s:str,apiid: str,appkey:str):
 # Set your own appid/appkey.
-    appid = 
-    appkey = 'UV3RLUziF6fy7CxFp4hs'
+    appid = apiid
+    appkey = appkey
 
     # For list of language codes, please refer to `https://api.fanyi.baidu.com/doc/21`
     from_lang = 'zh'

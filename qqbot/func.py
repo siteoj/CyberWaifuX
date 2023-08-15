@@ -35,7 +35,7 @@ class message_handler():
 
     # Sends a voice message 
     def handle_send_voice(message):
-        text = fanyi(message.message.replace('#发送语音', ''))
+        text = fanyi(s=message.message.replace('#发送语音', ''),apiid=self.waifu.apiid,appkey=self.waifu.appkey)
         path = voice_vits(text) 
         message.sender.send_message("%s" % record(file='file:///' + path))
         message.sender.send_message(text)
@@ -160,7 +160,7 @@ class message_handler():
         content=cmds[1]
         print(aim)
         print(content)
-        ans=fanyi(content)
+        ans=fanyi(s=content,apiid=self.waifu.apiid,appkey=self.waifu.appkey)
         print(ans)
         path=v.sendmsg(ans)
         # time.sleep(5)
@@ -181,7 +181,7 @@ class message_handler():
         content=cmds[1]
         print(aim)
         print(content)
-        ans=fanyi(content)
+        ans=fanyi(s=content,apiid=self.waifu.apiid,appkey=self.waifu.appkey)
         print(ans)
         path=v.sendmsg(ans)
         # time.sleep(5)

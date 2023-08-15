@@ -22,7 +22,7 @@ def newthread_process(waifu: Waifu,bot: cqBot):
             rca.start()
         if  rcareply != '':
             
-            ans=fanyi(rcareply)
+            ans=fanyi(s=rcareply,appkey=waifu.appkey,apiid=waifu.apiid)
             text = ans
             print(text)
             path=voice_vits(text=text)

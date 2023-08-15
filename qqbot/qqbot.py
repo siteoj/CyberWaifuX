@@ -204,7 +204,7 @@ def make_qq_bot(callback, waifu: Waifu, send_text, send_voice, tts):
             return
         if '#发送语音' in message.message:
             text = message.message
-            text= fanyi(text.replace('#发送语音',''))
+            text= fanyi(s=text.replace('#发送语音',''),apiid=waifu.apiid,appkey=waifu.appkey)
             print(text)
             path=voice_vits(text=text)
             # time.sleep(5)
@@ -259,7 +259,7 @@ def make_qq_bot(callback, waifu: Waifu, send_text, send_voice, tts):
                 sentences=nlp.sentences
                 if sdv:
                     if not fenju:
-                        ans=fanyi(reply)
+                        ans=fanyi(s=reply,apiid=waifu.apiid,appkey=waifu.appkey)
                         text = ans
                         print(text)
                         path=voice_vits(text=text)

@@ -30,6 +30,8 @@ use_search 	 = str2bool(config['Thoughts']['use_search'])
 use_emotion  = str2bool(config['Thoughts']['use_emotion'])
 search_api	 = config['Thoughts_GoogleSerperAPI']['api']
 voice 		 = config['TTS']['voice']
+apiid		 = config['Translate_Baidu']['baidu_appid']
+appkey		 = config['Translate_Baidu']['baidu_secretKey']
 
 prompt = load_prompt(charactor)
 stranger_prompt = load_stranger_prompt(stranger)
@@ -61,6 +63,8 @@ elif model == 'Claude':
 waifu = Waifu(brain=brain,
 				prompt=prompt,
 				name=name,
+				apiid=apiid,
+				appkey=appkey,
                 username=username,
 				stranger=stranger_prompt,
 				use_search=use_search,
