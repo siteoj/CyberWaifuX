@@ -172,7 +172,7 @@ class handler():
         
     # Posts to qzone  
     def handle_send_post(message, waifu):
-        if message.sender.id != 169829974:
+        if message.sender.id != self.waifu.qq_number:
             message.sender.send_message('你在想什么呢,让我给你发说说?')
             return
         waifu.ss(message)

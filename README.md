@@ -1,4 +1,4 @@
-# AnimeWaifus
+# CyberWaifuX
 (Copy from CyberWaifu)
 一个基于CyberWaifu开发的个人QQ机器人，可以进行人格设定，上下文语境结合，长期记忆链以及QQ说说的发送
 
@@ -30,15 +30,19 @@
 
 ✅ QQ空间图文发送（可选自写文案或原文发送）
 
-⬜ vits, emotion-vits 支持
+✅ vits, emotion-vits 支持
+
+✅ 百度翻译api支持
 
 ⬜ bark 支持
 
-⬜ AI 绘图支持，将绘图引入思考链，使 AI 可以生成图片，例如 AI 自拍
+✅ AI 绘图支持，将绘图引入思考链，使 AI 可以生成图片，例如 AI 自拍
 
 ### 安装💻
 
 Python 版本：3.10.10
+为了保存记忆方便，我修改了原有的langchain库
+需要将项目中的langchain.rar解压覆盖至pyhton根目录下的\Lib\site-packages中
 
 #### QQ 机器人部署
 根据 [go-cqhttp 下载文档](https://docs.go-cqhttp.org/guide/quick_start.html#%E4%B8%8B%E8%BD%BD)，下载相应平台的可执行程序，并放入 `qqbot` 目录中
@@ -80,7 +84,15 @@ PyCqBot: go-cqhttp 警告 当前协议不支持二维码登录, 请配置账号�
     ]
 }
 ```
-
+#### 百度翻译api设置
+在config.ini 中找到appkey和apiid
+```
+# 百度翻译 API
+[Translate_Baidu]
+baidu_appid =
+baidu_secretKey =
+```
+填入自己的key
 #### 人设 Prompt 配置
 根据 `presets/charactor/模板.txt` 进行编写，将编写好的人设 Prompt 丢到 `presets/charactor` 目录下即可，随后在 `config.ini` 配置文件中的 `charactor` 字段填写文件名（不包含后缀名）
 
